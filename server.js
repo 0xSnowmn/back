@@ -10,7 +10,12 @@ const MongoClient = require('mongodb').MongoClient;
 const uri = process.env.MONGODB_URI
 const client = new MongoClient(uri, { useNewUrlParser: true });
 client.connect(err => {
-  const collection = client.db("test").collection("devices");
+	db.createCollection("users", function(err, result) {
+        if (err) throw err;
+        console.log("Collection is created!");
+        // close the connection to db when you are done with it
+        db.close();
+    });
  // perform actions on the collection object
   client.close();
 });
