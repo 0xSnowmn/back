@@ -8,16 +8,17 @@ let dbConfig = require('./db/conn');
 const keysController = require('./keysController.js')
 const MongoClient = require('mongodb').MongoClient;
 const uri = process.env.MONGODB_URI
-const client = new MongoClient(uri, { useNewUrlParser: true });
-client.connect(err => {
-	db.createCollection("users", function(err, result) {
+MongoClient.connect(uri, function(err, db) {
+    if (err) throw err;
+    // db pointing to newdb
+    console.log("Switched to "+db.databaseName+" database");
+    // create 'users' collection in newdb database
+    db.createCollection("users", function(err, result) {
         if (err) throw err;
         console.log("Collection is created!");
         // close the connection to db when you are done with it
         db.close();
     });
- // perform actions on the collection object
-  client.close();
 });
 /* mongoose.Promise = global.Promise;
 mongoose.connect(dbConfig.db).then(() => {
