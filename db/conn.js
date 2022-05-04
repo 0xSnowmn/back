@@ -1,6 +1,6 @@
 
 module.exports = {
-    db: process.env.MONGODB_URI
+    db: 'mongodb+srv://snowman:112233yY@cluster0.lb6ap.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
   };
 
   
