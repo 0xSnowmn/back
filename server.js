@@ -6,15 +6,22 @@ let dbConfig = require('./db/conn');
 
 // Express Route
 const keysController = require('./keysController.js')
-
-mongoose.Promise = global.Promise;
+const MongoClient = require('mongodb').MongoClient;
+const uri = process.env.MONGODB_URI
+const client = new MongoClient(uri, { useNewUrlParser: true });
+client.connect(err => {
+  const collection = client.db("test").collection("devices");
+ // perform actions on the collection object
+  client.close();
+});
+/* mongoose.Promise = global.Promise;
 mongoose.connect(dbConfig.db).then(() => {
 console.log('Database successfully connected!')
 },
 error => {
 	console.log('Could not connect to database')
 }
-)
+) */
 
 const app = express();
 

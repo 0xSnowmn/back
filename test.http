@@ -1,9 +1,7 @@
-POST  https://snowmanserv.herokuapp.com/keys/cmt0 HTTP/1.1
+GET  https://snowmanserv.herokuapp.com/keys/check?key=2B3zU7MA1d4r0nJkbk7FnodDBLLxgasA HTTP/1.1
 content-type: application/json
 X-IAM-GHONEM: yes
 
-{
-    "expireDate": "2/10/2022"
-}
+
 
 
