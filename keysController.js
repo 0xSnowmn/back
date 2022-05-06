@@ -13,7 +13,7 @@ router.get("/check", async (req, res) => {
 			var ExpireData = moment(String(data.Expire),'M/D/YYYY');
 			var RealDate = moment(new Date().toLocaleDateString(),'M/D/YYYY');
 			var diffDays = ExpireData.diff(RealDate, 'days');
-			if(diffDays > 0) {
+			if(diffDays < 0) {
 				res.json({isExpired:'true',mac:data.Mac})
 			} else {
 				reqKey.updateOne({
