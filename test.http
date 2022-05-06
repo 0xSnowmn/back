@@ -1,6 +1,2 @@
-GET  https://snowmanserv.herokuapp.com/keys/check?key=HGH2fFp2hbcMAYRqqIVEExNCWtdLjcVt HTTP/1.1
+GET  http://snowmanserv.herokuapp.com/api/keys/check?key=wO5p9hGNxv6UeBgIPOBXWPl6fv9flEdm HTTP/1.1
 content-type: application/json
-X-IAM-GHONEM: yes
-
-
-

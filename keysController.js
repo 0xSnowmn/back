@@ -5,65 +5,47 @@ moment = require("moment")
 
 // Key Model
 let Key = require("./db/keys");
-router.use(function(req, res, next) {
-    if(req.headers['x-iam-ghonem']) {
-		next()
-	} else {
-		res.json({msg:"NOT_AUTH "})
-	}
-});
-
-
 // Check If Key Is Expired Or Not
 router.get("/check", async (req, res) => {
-	const reqKey = await Key.findOne({KeyStr:req.query.key})
-	if(reqKey) {
-		Key.findOne({KeyStr:req.query.key},(err,data) => {
-			var data = JSON.parse(JSON.stringify(data))
+	const reqKey = await Key.findOne({'Key':req.query.key})
+	if(reqKey !== null) {
+			var data = JSON.parse(JSON.stringify(reqKey))
 			var ExpireData = moment(String(data.Expire),'M/D/YYYY');
 			var RealDate = moment(new Date().toLocaleDateString(),'M/D/YYYY');
 			var diffDays = ExpireData.diff(RealDate, 'days');
-			if(diffDays < 0) {
+			if(diffDays > 0) {
 				res.json({isExpired:'true',mac:data.Mac})
 			} else {
-				res.json({isExpired:'false',mac:data.Mac})
+				reqKey.updateOne({
+					 "Last_Used":String(new Date().toLocaleDateString()),"Mac":data.Mac},
+					  function(err,resp) {
+					res.json({isExpired:'false',mac:data.Mac})
+				})
 			}
-		})
 	} else {
 		res.status(401).json({msg:"not Found"})
 	}
 });
 
-router.put('/usg',async (req,res) => {
-	const reqKey = await Key.findOne({KeyStr:req.body.key})
-	var newvalues = { $set: {Mac: req.body.mac } };
-
-	Key.updateOne({KeyStr:req.body.key}, newvalues, function(err, res2) {
-		res.json({data:res2})
-	})
-	
-})
-
-router.post('/cmt0',(req,res) => {
+router.post('/create',(req,res) => {
 		const k = makeKey(32)
-		Key.create({KeyStr:k,Expire:req.body.expireDate,Mac:''},(err,data) => {
+		if(req.body.expireDate == null || req.body.program == null ){
+			res.status(407).json({error:"Missed Params"})
+			return
+		}
+		Key.create({Key:k,Expire:req.body.expireDate,Mac:'',Last_Used:'',Program:req.body.program},(err,data) => {
 			res.json({key:k,expire:req.body.expireDate})
 			if(err){
 				return
 			}
 		})
-	
-	
 })
 
-router.delete('/dlt1',(req,res) => {
-	if(req.headers.x_iam_ghonem) {
+router.delete('/delete',(req,res) => {
+
 		Key.findOneAndDelete({KeyStr:req.body.KeyStr},(err,data) => {
 			res.json({msg:"deleted"})
 		})
-	} else {
-		res.json({msg:"error"})
-	}
 	
 })
 

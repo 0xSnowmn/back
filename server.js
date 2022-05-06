@@ -6,7 +6,10 @@ let dbConfig = require('./db/conn');
 
 // Express Route
 const keysController = require('./keysController.js')
+const users = require('./users.js')
+const program = require('./program.js')
 
+const auth = require('./auth.js')
 mongoose.Promise = global.Promise;
 mongoose.connect(dbConfig.db).then(() => {
 console.log('Database successfully connected!')
@@ -20,7 +23,9 @@ const app = express();
 
 app.use(bodyParser.json());
 app.use(cors());
-app.use('/keys', keysController)
+app.use('/api/keys',keysController)
+app.use('/api/programs',program)
+app.use('/api/users', users)
 
 
 // PORT
