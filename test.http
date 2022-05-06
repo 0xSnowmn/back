@@ -1,2 +1,7 @@
-GET  http://snowmanserv.herokuapp.com/api/keys/check?key=wO5p9hGNxv6UeBgIPOBXWPl6fv9flEdm HTTP/1.1
+POST  http://snowmanserv.herokuapp.com/api/keys/create HTTP/1.1
 content-type: application/json
+
+{
+    "Expire":"12/2/2030",
+    "program":"test"
+}
