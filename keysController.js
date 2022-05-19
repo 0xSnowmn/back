@@ -13,15 +13,17 @@ router.get("/check", async (req, res) => {
 			var ExpireData = moment(String(data.Expire),'M/D/YYYY');
 			var RealDate = moment(new Date().toLocaleDateString(),'M/D/YYYY');
 			var diffDays = ExpireData.diff(RealDate, 'days');
-			if(diffDays < 0) {
-				res.json({isExpired:'true',mac:data.Mac})
-			} else {
-				reqKey.updateOne({
-					 "Last_Used":String(new Date().toLocaleDateString()),"Mac":data.Mac},
-					  function(err,resp) {
-					res.json({isExpired:'false',mac:data.Mac})
-				})
-			}
+			if(diffDays < 0 ) {
+				res.json({isExpired:'true'})
+			} else if(data.Mac == '') {
+					reqKey.updateOne({
+						"Last_Used":String(new Date().toLocaleDateString()),"Mac":req.query.mac},
+						 function(err,resp) {
+					   res.json({isExpired:'false',mac:data.Mac})
+				   })
+			}  else if(req.query.key !== data.Mac){
+				res.status(401).json({msg:"error"})
+			} 
 	} else {
 		res.status(401).json({msg:"not Found"})
 	}
