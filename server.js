@@ -8,7 +8,7 @@ let dbConfig = require('./db/conn');
 const keysController = require('./keysController.js')
 const users = require('./users.js')
 const program = require('./program.js')
-
+const update = require('./updates.js')
 const auth = require('./auth.js')
 mongoose.Promise = global.Promise;
 mongoose.connect(dbConfig.db).then(() => {
@@ -23,8 +23,10 @@ const app = express();
 
 app.use(bodyParser.json());
 app.use(cors());
+app.all('*', auth);
 app.use('/api/keys',keysController)
 app.use('/api/programs',program)
+app.use('/api/updates',update)
 app.use('/api/users', users)
 
 

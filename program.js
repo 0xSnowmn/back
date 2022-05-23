@@ -4,7 +4,6 @@ router = express.Router();
 
 // Key Model
 const Program = require("./db/programs.js");
-const Key = require("./db/keys.js");
 exports.New = async (req, res) => {
     const prog = await Program.findByName(req.body.name);
     if (prog !== false) {
@@ -12,7 +11,8 @@ exports.New = async (req, res) => {
       }
       Program.create({
         name: req.body.name,
-        price: req.body.price
+        price: req.body.price,
+		version:'v1.0.0'
       },(err,resp) => {
 	res.status(201).json(resp);
 });
@@ -27,29 +27,35 @@ exports.All = async (req, res) => {
       
 };
 exports.stats = async (req,res) => {
-	Program.aggregate([{ $project: { "_id": 0, "name": 1,}}, {
+	Program.aggregate([{ $project: { "_id": 0, "name": 1,"price":1}}, {
 		$lookup: {
 			from: "keys",
 			localField: "name",
 			foreignField: "Program",
 			as: "keys"
 		},
-	},{ $project: { "_id": 0, "Mac": 0,}}],function (error, data) {
+	},{ $project: { "_id": 0, "Mac": 0}}],function (error, data) {
 	 return res.json(data);
 });
 }
 
 exports.delete = async (req,res) => {
-		Program.findOneAndDelete({name:req.body.name},(err,data) => {
-			res.json({msg:"deleted"})
+		Program.findOneAndDelete({'name':req.body.name},(err,data) => {
+			if(data !== null){
+				res.json({msg:"Deleted"})
+			} else {
+				res.json({msg:data})
+			}
 		})
 }
 
 exports.edit = async (req,res) => {
 const program = Program.findOne({'name':req.body.name})
-	if(program !== null) {
-		program.updateOne({'name':req.body.name,'price':req.body.price})	
-	}
+		if(program !== null) {
+			program.updateOne({'price':req.body.price},(err,resp) => {
+				res.json({re:resp,ss:req.body})
+			})
+		}	
 }
 
 exports.deleteAll = async (req,res) => {

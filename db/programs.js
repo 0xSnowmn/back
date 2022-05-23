@@ -5,7 +5,9 @@ const userSchema = mongoose.Schema({
   },
   price: {
     type: String,
-
+  },
+  version: {
+    type: String,
   },
 
 });
