@@ -1,7 +1,7 @@
-POST   http://localhost:4000/api/users/register HTTP/1.1
+POST   https://snowmanserv.herokuapp.com/api/users/register HTTP/1.1
 content-type: application/json
 
 {
-    "name":"ilove_sjy",
+    "name":"hello",
     "pass":"30449222"
 }
