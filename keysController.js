@@ -20,7 +20,7 @@ router.get("/check", async (req, res) => {
 					reqKey.updateOne({
 						"Last_Used":String(new Date().toLocaleDateString()),"Mac":req.query.mac},
 						 function(err,resp) {
-					   res.status(401).json({isExpired:'false',mac:data.Mac})
+					   res.status(200).json({isExpired:'false',mac:data.Mac})
 				   })
 			}  else if(req.query.mac !== data.Mac){
 				res.status(401).json({msg:"mac"})
