@@ -2,6 +2,6 @@ POST   https://snowmanserv.herokuapp.com/api/users/register HTTP/1.1
 content-type: application/json
 
 {
-    "name":"hello",
-    "pass":"30449222"
+    "name":"tt",
+    "pass":"tt"
 }

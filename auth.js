@@ -9,7 +9,7 @@ module.exports = (req, res, next) => {
     next();
   } catch (err) {
     return res.status(401).json({
-      message: "Authentification Failed"
+      message: err + '\n' + process.env.JWT
     });
   }
 };
