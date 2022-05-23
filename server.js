@@ -2,6 +2,8 @@ let express = require('express');
 let mongoose = require('mongoose');
 let cors = require('cors');
 let bodyParser = require('body-parser');
+const path = require('path');
+const serveStatic = require('serve-static');
 let dbConfig = require('./db/conn');
 
 // Express Route
@@ -20,7 +22,7 @@ error => {
 )
 
 const app = express();
-
+app.use(serveStatic(__dirname + "/dist"));
 app.use(bodyParser.json());
 app.use(cors());
 app.all('*', auth);
