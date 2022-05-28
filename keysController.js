@@ -23,10 +23,10 @@ router.get("/check", async (req, res) => {
 					   res.status(200).json({isExpired:'false',mac:data.Mac})
 				   })
 			}  else if(req.query.mac !== data.Mac){
-				res.status(401).json({msg:"mac"})
+				res.status(401).send({msg:"mac"})
 			} 
 	} else {
-		res.status(401).json({msg:"not Found"})
+		res.status(401).send({msg:"not Found"})
 	}
 });
 
