@@ -24,7 +24,9 @@ error => {
 const app = express();
 app.use(serveStatic(__dirname + "/dist"));
 app.use(bodyParser.json());
-app.use(cors());
+app.use(cors({
+    origin: '*'
+}));
 app.all('*', auth);
 app.use('/api/keys',keysController)
 app.use('/api/programs',program)
