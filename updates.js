@@ -43,6 +43,7 @@ exports.urge = async (req,res) => {
         // use your case insensitive sorted results
 		var versions = []
 		var version = req.body.version
+		console.log(version,req.body)
 		version = version.replace('v','')
 		version = parseFloat(version)
 		data.forEach(el => {
