@@ -16,7 +16,7 @@ exports.New = async (req, res) => {
         Version: req.body.version,
 		Urge:	req.body.urge
       },(err,resp) => {
-		prog.updateOne({"version":version})
+		prog.updateOne({"version":req.body.version})
 		res.status(201).json(resp);
 });
       
