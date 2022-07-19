@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 module.exports = (req, res, next) => {
   try {
-    const nonSecurePaths = ['/api/users/login','/api/users/register', '/api/keys/check','/api/updates/urge'];
+    const nonSecurePaths = ['/api/keys/stats','/api/users/login','/api/users/register', '/api/keys/check','/api/updates/urge'];
   if (nonSecurePaths.includes(req.path)){
      console.log(nonSecurePaths.includes(req.path),req.path)
      return next();

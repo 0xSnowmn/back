@@ -13,7 +13,7 @@ exports.New = async (req, res) => {
       }
       Update.create({
         Program: req.body.prog,
-        Version: version,
+        Version: req.body.version,
 		Urge:	req.body.urge
       },(err,resp) => {
 		prog.updateOne({"version":version})

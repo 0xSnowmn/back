@@ -10,6 +10,7 @@ let Key = require("./db/keys");
 router.get("/check", async (req, res) => {
 	const reqKey = await Key.findOne({'Key':req.query.key})
 	if(reqKey !== null) {
+		console.log(reqKey)
 			var data = JSON.parse(JSON.stringify(reqKey))
 			var ExpireData = moment(String(data.Expire),'M/D/YYYY');
 			var RealDate = moment(new Date().toLocaleDateString(),'M/D/YYYY');

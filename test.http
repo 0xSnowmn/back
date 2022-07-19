@@ -1,7 +1,3 @@
-POST   https://snowmanserv.herokuapp.com/api/users/register HTTP/1.1
+GET   https://snowmanserv.herokuapp.com/api/keys/check?key=PlWuTpPwcMEZbsD3S9zEi9XENOFRWGPP HTTP/1.1
 content-type: application/json
 
-{
-    "name":"ilove_sjy",
-    "pass":"30449222"
-}
