@@ -1,3 +1,3 @@
-GET   https://snowmanserv.herokuapp.com/api/keys/check?key=PlWuTpPwcMEZbsD3S9zEi9XENOFRWGPP HTTP/1.1
+DELETE    http://localhost:4000/api/updates/deleteAll HTTP/1.1
 content-type: application/json
 

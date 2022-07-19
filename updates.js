@@ -40,21 +40,20 @@ exports.delete = async (req,res) => {
  
 exports.urge = async (req,res) => {
 	const Updatea = await Update.find({'Program':req.body.prog,'Urge':true}).sort({Version:-1}).exec(function(err, data) {
-        // use your case insensitive sorted results
 		var versions = []
 		var version = req.body.version
-		console.log(version,req.body)
+		version = version.toLowerCase()
 		version = version.replace('v','')
 		version = parseFloat(version)
 		data.forEach(el => {
-			var mm = el.Version.replace('v','')
+			var mm = el.Version.toLowerCase().replace('v','')
 			if(version > parseFloat(mm)) {
 				
 			} else {
 				if(!versions.includes(parseFloat(mm))) versions.push(parseFloat(mm))
 			}
 		})
-		const largeV = versions.sort((a,b)=>a-b)[versions.length - 1]
+		var largeV = versions.sort((a,b)=>a-b)[versions.length - 1]
 		if(largeV > version){
 			res.status(401).send({update:true,version:largeV})
 		} else {
