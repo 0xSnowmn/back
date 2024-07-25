@@ -21,7 +21,7 @@ error => {
 }
 )
 
-const app = express();
+const app = express()
 app.use(serveStatic(__dirname + "/dist"));
 app.use(bodyParser.json());
 app.use(cors({
